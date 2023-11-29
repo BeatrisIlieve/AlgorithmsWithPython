@@ -1,3 +1,11 @@
+"""
+Problem description:
+    Write an algorythm to find all possible placements of 8 chess queens
+    on a chessboard so that no two queens can attack each other.
+"""
+
+
+# Solution:
 def print_board(board):
     for row in board:
         print(' '.join(row))
@@ -50,3 +58,7 @@ board = []
 print(board)
 
 place_queens(0, board, set(), set(), set(), set())
+
+"""
+Result: 
+"""

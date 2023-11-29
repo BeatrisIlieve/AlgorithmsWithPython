@@ -5,6 +5,8 @@ Problem description:
 """
 
 
+# Solution:
+
 def calculate_sum(numbers, index):
     if index == len(numbers) - 1:
         return numbers[index]

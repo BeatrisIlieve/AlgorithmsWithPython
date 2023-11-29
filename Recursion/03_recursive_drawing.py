@@ -4,6 +4,8 @@ Problem description:
 """
 
 
+# Solution:
+
 def draw_figure(n):
     if n == 0:
         return

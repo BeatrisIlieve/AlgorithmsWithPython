@@ -4,6 +4,7 @@ Problem description:
 """
 
 
+# Solution:
 def generate_01(index, vector):
     if index >= len(vector):
         print(*vector, sep='')

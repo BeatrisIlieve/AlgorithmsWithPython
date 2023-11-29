@@ -14,4 +14,6 @@ def calculate_factorial(n):
 n = 5
 
 print(calculate_factorial(n))
-# Result = 120
+"""
+Result: 120
+"""

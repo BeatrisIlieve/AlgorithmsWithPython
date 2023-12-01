@@ -18,6 +18,7 @@ list_of_numbers = [1, 2, 3, 4]
 start_index = 0
 
 print(calculate_sum(list_of_numbers, start_index))
+
 """
 Result: 10
 """

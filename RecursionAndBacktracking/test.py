@@ -1,87 +1,83 @@
 """
 Problem description:
-    You are given a labyrinth. Your goal is to find all paths from the start (cell 0, 0) to the exit, marked with 'e'.
-    Empty cells are marked with a dash '-'.
-    Walls are marked with a star '*'.
-    On the first line, you will receive the dimensions of the labyrinth. Next, you will receive the actual labyrinth.
+    Write an algorythm to find all possible placements of 8 chess queens
+    on a chessboard so that no two queens can attack each other.
 """
+
 
 # Solution:
-
-directions = {
-    'U': (- 1, 0),
-    'D': (+ 1, 0),
-    'L': (0, - 1),
-    'R': (0, + 1),
-}
+def print_board(board):
+    for row in board:
+        print(' '.join(row))
+    print()
 
 
-def get_next_row(row, direction):
-    return row + direction[0]
+def can_place_queen(row, col, rows, cols, left_diagonals, right_diagonals):
+    if row in rows:
+        return False
+    if col in cols:
+        return False
+    if (row - col) in left_diagonals:
+        return False
+    if (row + col) in right_diagonals:
+        return False
+    return True
 
 
-def get_next_col(col, direction):
-    return col + direction[1]
+def set_queen(row, col, board, rows, cols, left_diagonals, right_diagonals):
+    board[row][col] = '*'
+    rows.add(row)
+    cols.add(col)
+    left_diagonals.add(row - col)
+    right_diagonals.add(row + col)
 
 
-def is_outside(row, col, outside_row, outside_col):
-    if row < 0 or col < 0 or row >= outside_row or col >= outside_col:
-        return True
+def remove_queen(row, col, board, rows, cols, left_diagonals, right_diagonals):
+    board[row][col] = '-'
+    rows.remove(row)
+    cols.remove(col)
+    left_diagonals.remove(row - col)
+    right_diagonals.remove(row + col)
 
 
-def is_a_wall(labyrinth, row, col):
-    if labyrinth[row][col] == '*':
-        return True
-
-
-def is_already_visited(labyrinth, row, col):
-    if labyrinth[row][col] == 'v':
-        return True
-
-
-def find_all_paths(row, col, labyrinth, direction, path):
-    outside_row = len(labyrinth)
-    outside_col = len(labyrinth[0])
-
-    if is_outside(row, col, outside_row, outside_col):
+def place_queens(row, board, rows, cols, left_diagonals, right_diagonals):
+    if row == 8:
+        print_board(board)
         return
-
-    if is_a_wall(labyrinth, row, col):
-        return
-
-    if is_already_visited(labyrinth, row, col):
-        return
-
-    path.append(direction)
-
-    if labyrinth[row][col] == 'e':
-        print(''.join(path))
-
-    else:
-        labyrinth[row][col] = 'v'
-
-        find_all_paths(get_next_row(row, directions['U']), get_next_col(col, directions['U']), labyrinth, 'U', path)
-
-        find_all_paths(get_next_row(row, directions['D']), get_next_col(col, directions['D']), labyrinth, 'D', path)
-
-        find_all_paths(get_next_row(row, directions['L']), get_next_col(col, directions['L']), labyrinth, 'L', path)
-
-        find_all_paths(get_next_row(row, directions['R']), get_next_col(col, directions['R']), labyrinth, 'R', path)
-
-        labyrinth[row][col] = '-'
-
-    path.pop()
+    for col in range(8):
+        if can_place_queen(row, col, rows, cols, left_diagonals, right_diagonals):
+            set_queen(row, col, board, rows, cols, left_diagonals, right_diagonals)
+            place_queens(row + 1, board, rows, cols, left_diagonals, right_diagonals)
+            remove_queen(row, col, board, rows, cols, left_diagonals, right_diagonals)
 
 
-labyrinth = [['-', '-', '-'], ['-', '*', '-'], ['-', '-', 'e']]
-direction = ''
-path = []
-start_row, start_col = 0, 0
+n = 8
+board = []
+[board.append(['-'] * n) for _ in range(n)]
 
-find_all_paths(start_row, start_col, labyrinth, direction, path)
+place_queens(0, board, set(), set(), set(), set())
 
 """
-Result:
-    DDRR
-    RRDD
+Result: 
+    * - - - - - - - 
+    - - - - * - - - 
+    - - - - - - - * 
+    - - - - - * - - 
+    - - * - - - - - 
+    - - - - - - * - 
+    - * - - - - - - 
+    - - - * - - - - 
+
+    * - - - - - - - 
+    - - - - - * - - 
+    - - - - - - - * 
+    - - * - - - - - 
+    - - - - - - * - 
+    - - - * - - - - 
+    - * - - - - - - 
+    - - - - * - - -
+
+    …
+
+    (90 solutions more)
 """

@@ -8,7 +8,7 @@ Problem description:
 
 def reverse_array(left_index, elements):
     if left_index == len(elements) // 2:
-        print(elements)
+        print(''.join(elements))
         return
 
     right_index = len(elements) - 1 - left_index

@@ -1,0 +1,64 @@
+"""
+Problem description:
+    Write a program that receives some strings and forms another string that is required.
+    On the first line, you will be given all of the strings separated by comma and space.
+    On the next line, you will be given the string that needs to be formed from the given strings.
+"""
+
+# Solution:
+
+
+words = ['text', 'me', 'so', 'do', 'm', 'ran']
+
+target = 'somerandomtext'
+
+words_by_index = {}
+words_by_count = {}
+
+for word in words:
+    if word in words_by_count:
+        words_by_count[word] += 1
+
+    else:
+        words_by_count[word] = 1
+
+    try:
+        index = 0
+
+        while True:
+            index = target.index(word, index)
+
+            if index not in words_by_index:
+                words_by_index[index] = []
+            words_by_index[index].append(word)
+
+            index += len(word)
+
+    except ValueError:
+        pass
+
+
+def find_all_solutions(index, target, words_by_index, words_by_count, used_words):
+    if index >= len(target):
+        print(' '.join(used_words))
+        return
+
+    if index not in words_by_index:
+        return
+
+    for word in words_by_index[index]:
+        used_words.append(word)
+        words_by_count[word] -= 1
+
+        find_all_solutions(index + len(word), target, words_by_index, words_by_count, used_words)
+
+        used_words.pop()
+        words_by_count[word] += 1
+
+
+find_all_solutions(0, target, words_by_index, words_by_count, [])
+
+"""
+Result: 
+    so me ran do m text
+"""

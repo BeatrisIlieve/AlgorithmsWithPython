@@ -11,23 +11,23 @@ def quick_sort(start, end, nums):
         return
 
     pivot = start
-    left = start + 1
-    right = end
+    left_index = start + 1
+    right_index = end
 
-    while left <= right:
-        if nums[left] > nums[pivot] > nums[right]:
-            nums[left], nums[right] = nums[right], nums[left]
+    while left_index <= right_index:
+        if nums[left_index] > nums[pivot] > nums[right_index]:
+            nums[left_index], nums[right_index] = nums[right_index], nums[left_index]
 
-        if nums[left] <= nums[pivot]:
-            left += 1
+        if nums[left_index] <= nums[pivot]:
+            left_index += 1
 
-        if nums[right] >= nums[pivot]:
-            right -= 1
+        if nums[right_index] >= nums[pivot]:
+            right_index -= 1
 
-    nums[pivot], nums[right] = nums[right], nums[pivot]
+    nums[pivot], nums[right_index] = nums[right_index], nums[pivot]
 
-    quick_sort(start, right - 1, nums)
-    quick_sort(left, end, nums)
+    quick_sort(start, end - 1, nums)
+    quick_sort(left_index, end, nums)
 
 
 nums = [5, 4, 3, 2, 1]

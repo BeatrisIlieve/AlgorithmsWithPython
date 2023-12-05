@@ -31,8 +31,10 @@ def quick_sort(start, end, nums):
 
 
 nums = [5, 4, 3, 2, 1]
+left_index = 0
+right_index = len(nums) - 1
 
-quick_sort(0, len(nums) - 1, nums)
+quick_sort(left_index, right_index, nums)
 
 print(' '.join(str(x) for x in nums))
 

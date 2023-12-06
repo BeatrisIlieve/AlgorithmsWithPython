@@ -15,6 +15,7 @@ def merge_arrays(left, right):
 
     while left_index < len(left) and right_index < len(right):
         if left[left_index] < right[right_index]:
+            result[result_index] = left[left_index]
             left_index += 1
 
         else:
@@ -49,10 +50,12 @@ def merge_sort(nums):
     return merge_arrays(merge_sort(left), merge_sort(right))
 
 
-nums = [5, 4, 3, 2, 1]
+nums = [38, 27, 43, 3, 9, 82, 10]
 
 print(' '.join(str(x) for x in merge_sort(nums)))
 
 """
-Result: 1 2 3 4 5
+Result: 3, 9, 10, 27, 38, 43, 82
 """
+
+
